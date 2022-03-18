@@ -1,7 +1,7 @@
 import React from "react";
 
 class AddContact extends React.Component {
-    start = {
+    state = {
         name:"",
         email:"",
     };
@@ -12,8 +12,8 @@ class AddContact extends React.Component {
             alert( "All the fields are mandatory!");
             return
         }
-        this.props.AddContactHandler(this.state);
-        this.setState({name:"", email:""});
+        console.log(this.state);
+        this.props.addContactHandler(this.state)        // this.setState({name:"", email:""});
     }
     render() { 
         return (
@@ -27,10 +27,10 @@ class AddContact extends React.Component {
                         onChange={ (e) => this.setState({ name: e.target.value })}/>
                     </div>
                     <div className="field">
-                        <label>Name</label>
-                        <input type="text" name="email" placeholder="email" 
+                        <label>Email</label>
+                        <input type="email" name="email" placeholder="email" 
                         value={this.state.email}
-                        onChange={ (e) => this.setState({ name: e.target.value })}/>
+                        onChange={ (e) => this.setState({ email: e.target.value })}/>
                     </div>
                     <button className="ui button blue">Add</button>
                 </form>
