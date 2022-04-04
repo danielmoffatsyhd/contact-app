@@ -63,6 +63,7 @@ function App() {
 
           />
 
+            <Route path="/contact/:id" component={ContactDetail} />
 
         </Switch>
 
