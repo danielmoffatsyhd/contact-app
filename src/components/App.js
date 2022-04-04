@@ -5,6 +5,7 @@ import "./App.css";
 import Header from "./Header";
 import AddContact from "./AddContact";
 import ContactList from "./ContactList";
+import ContactDetail from "./ContactDetail";
 
 
 function App() {
@@ -41,14 +42,32 @@ function App() {
   return (
     <div className="ui container">
 
+      <Router>
+        <Header />
+        <Switch>
+          <Route path="/" exact
+            render={(props) => (
+              <ContactList
+                {...props}
+                contacts={contacts}
+                getContactId={removeContactHandler}
+              />
+            )}
+          />
+          <Route path="/add" render={(props) => (
 
-      <Header />
+            <AddContact {...props}
+              addContactHandler={addContactHandler}
+            />
+          )}
 
-      {/* <Route path="/add" component={AddContact} />
-      <Route path="/" component={ContactList} /> */}
-      <AddContact addContactHandler={addContactHandler} />
-      <ContactList contacts={contacts} getContactId={removeContactHandler} />
+          />
 
+
+        </Switch>
+
+
+      </Router>
 
     </div>
   );
