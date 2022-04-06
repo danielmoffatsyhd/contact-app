@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ContactCard from "./ContactCard"
+import { useRef } from "react";
 
 const ContactList = (props) => {
-
     console.log(props);
-
+    const inputEI = useRef("");
     const deleteContactHandler = (id) => {
         props.getContactId(id);
     };
@@ -17,6 +17,9 @@ const ContactList = (props) => {
                 clickHandler={deleteContactHandler} key={contact.id} />
         );
     });
+    const getSearchTerm = () => {
+        props.searchKeyword(inputEI.current.value);
+    };
 
     return (
         <div className="main">
@@ -28,7 +31,9 @@ const ContactList = (props) => {
             </h2>
             <div className="ui search">
                 <div className="ui icon input">
-                    <input type="text" placeholder="Search Contacts" className="prompt" />
+                    <input 
+                    ref={inputEI}
+                    type="text" placeholder="Search Contacts" className="prompt" value={ props.term} onChange={ getSearchTerm}/>
                     <i className="search icon"></i>
                 </div>
 
