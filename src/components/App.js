@@ -13,7 +13,8 @@ import EditContact from "./EditContact";
 function App() {
   // const LOCAL_STORAGE_KEY = "contacts";
   const [contacts, setContacts] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("")
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
 
   // RetrieveContacts
@@ -38,7 +39,7 @@ function App() {
 
   const updateContactHandler = async (contact) => {
     const response = await api.put(`/contacts/${contact.id}`, contact)
-    const { id, name, email } = response.data;
+    const { id, } = response.data;
     setContacts(contacts.map((contact) => {
       return contact.id === id ? { ...response.data } : contact;
     })
@@ -55,11 +56,15 @@ function App() {
   };
 
   const searchHandler = (searchTerm) => {
-    console.log(searchTerm);
+    setSearchTerm(searchTerm);
     if (searchTerm !== "") {
       const newContactList = contacts.filter((contact) => {
-        console.log(Object.values(contact));
+        return Object.values(contact).join(" ").toLowerCase().includes(searchTerm.toLowerCase());
       });
+      setSearchResults(newContactList);
+    }
+    else {
+      setSearchResults(contacts);
     }
   };
 
@@ -91,7 +96,7 @@ function App() {
             render={(props) => (
               <ContactList
                 {...props}
-                contacts={contacts}
+                contacts={searchTerm.length < 1 ? contacts : searchResults}
                 getContactId={removeContactHandler}
                 term={searchTerm}
                 searchKeyword={searchHandler}

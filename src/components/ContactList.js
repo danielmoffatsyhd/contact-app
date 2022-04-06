@@ -4,7 +4,6 @@ import ContactCard from "./ContactCard"
 import { useRef } from "react";
 
 const ContactList = (props) => {
-    console.log(props);
     const inputEI = useRef("");
     const deleteContactHandler = (id) => {
         props.getContactId(id);
@@ -31,15 +30,15 @@ const ContactList = (props) => {
             </h2>
             <div className="ui search">
                 <div className="ui icon input">
-                    <input 
-                    ref={inputEI}
-                    type="text" placeholder="Search Contacts" className="prompt" value={ props.term} onChange={ getSearchTerm}/>
+                    <input
+                        ref={inputEI}
+                        type="text" placeholder="Search Contacts" className="prompt" value={props.term} onChange={getSearchTerm} />
                     <i className="search icon"></i>
                 </div>
 
             </div>
 
-            <div className="ui celled list">{renderContactList}</div>
+            <div className="ui celled list">{renderContactList.length > 0 ? renderContactList : "No Contacts available!"}</div>
         </div>
     );
 };
